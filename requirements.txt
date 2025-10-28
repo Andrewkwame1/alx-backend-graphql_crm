@@ -4,3 +4,4 @@ django-filter>=23.0,<24.0
 django-crontab
 celery==5.3.6
 redis==5.0.1
+django-celery-beat
