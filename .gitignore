@@ -47,7 +47,8 @@ Pipfile.lock
 .coverage.*
 htmlcov/
 .tox/
-
+.quodo/
+.idea/
 # Django
 *.log
 local_settings.py

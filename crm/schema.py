@@ -10,7 +10,7 @@ from django.db.models import Q
 
 from graphene_django.filter import DjangoFilterConnectionField
 from crm.filters import CustomerFilter, OrderFilter, ProductFilter
-from .models import Customer, Product, Order
+from crm.models import Customer, Product, Order
 
 
 class CustomerType(DjangoObjectType):
