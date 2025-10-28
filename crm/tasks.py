@@ -7,13 +7,9 @@ def generate_crm_report():
     url = "http://127.0.0.1:8000/graphql/"
     query = """
     query {
-        allCustomers {
-            totalCount
-        }
-        allOrders {
-            totalCount
-            totalRevenue
-        }
+        totalCustomerCount
+        totalOrderCount
+        totalRevenue
     }
     """
     try:
@@ -21,9 +17,9 @@ def generate_crm_report():
         data = response.json()
 
         # Extract data
-        customers = data['data']['allCustomers']['totalCount']
-        orders = data['data']['allOrders']['totalCount']
-        revenue = data['data']['allOrders']['totalRevenue']
+        customers = data['data']['totalCustomerCount']
+        orders = data['data']['totalOrderCount']
+        revenue = data['data']['totalRevenue']
 
         log_file = "/tmp/crm_report_log.txt"
         with open(log_file, "a") as f:

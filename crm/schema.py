@@ -232,6 +232,11 @@ class Query(graphene.ObjectType):
     all_products = DjangoFilterConnectionField(ProductType)
     all_orders = DjangoFilterConnectionField(OrderType)
 
+    # Fields for CRM report generation
+    total_customer_count = graphene.Int()
+    total_order_count = graphene.Int()
+    total_revenue = graphene.Decimal()
+
     def resolve_all_customers(self, info, **kwargs):
         qs = Customer.objects.all()
         # support a basic search kwarg
@@ -269,6 +274,20 @@ class Query(graphene.ObjectType):
         if order_by:
             qs = qs.order_by(*order_by)
         return qs
+
+    def resolve_total_customer_count(self, info, **kwargs):
+        """Return total count of customers."""
+        return Customer.objects.count()
+
+    def resolve_total_order_count(self, info, **kwargs):
+        """Return total count of orders."""
+        return Order.objects.count()
+
+    def resolve_total_revenue(self, info, **kwargs):
+        """Return total revenue from all orders."""
+        from django.db.models import Sum
+        total = Order.objects.aggregate(Sum('total_amount'))['total_amount__sum'] or Decimal("0.00")
+        return total
 
 
 class Mutation(graphene.ObjectType):
