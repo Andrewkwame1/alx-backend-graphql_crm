@@ -12,3 +12,4 @@ class Mutation(CRMMutation, graphene.ObjectType):
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
+
